@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Generated SDKs (optional - uncomment if you don't want to commit generated code)
+# sdks/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+

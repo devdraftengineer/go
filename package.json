@@ -1,0 +1,23 @@
+{
+  "name": "sdk-factory",
+  "version": "1.0.0",
+  "description": "SDK factory for generating multi-language SDKs from OpenAPI specifications",
+  "type": "module",
+  "scripts": {
+    "generate-sdks": "node ./scripts/generate-sdks.mjs ./openapi/api.yaml"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "openapi",
+    "sdk",
+    "code-generation"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

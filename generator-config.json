@@ -1,0 +1,36 @@
+{
+  "typescript": {
+    "npmName": "@mycompany/api-client",
+    "npmVersion": "1.0.0"
+  },
+  "python": {
+    "packageName": "api_client",
+    "packageVersion": "1.0.0",
+    "projectName": "api-client"
+  },
+  "java": {
+    "groupId": "com.mycompany",
+    "artifactId": "api-client",
+    "artifactVersion": "1.0.0"
+  },
+  "go": {
+    "packageName": "api",
+    "packageVersion": "1.0.0",
+    "moduleName": "github.com/mycompany/api-client"
+  },
+  "csharp": {
+    "packageName": "ApiClient",
+    "packageVersion": "1.0.0"
+  },
+  "php": {
+    "packageName": "api-client",
+    "packageVersion": "1.0.0",
+    "invokerPackage": "ApiClient"
+  },
+  "ruby": {
+    "gemName": "api_client",
+    "gemVersion": "1.0.0",
+    "moduleName": "ApiClient"
+  }
+}
+
