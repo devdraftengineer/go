@@ -1,0 +1,43 @@
+# BridgePaymentRail
+
+The blockchain network where the source currency resides. Determines gas fees and transaction speed.
+
+## Enum
+
+* `ETHEREUM` (value: `'ethereum'`)
+
+* `SOLANA` (value: `'solana'`)
+
+* `POLYGON` (value: `'polygon'`)
+
+* `AVALANCHE_C_CHAIN` (value: `'avalanche_c_chain'`)
+
+* `BASE` (value: `'base'`)
+
+* `ARBITRUM` (value: `'arbitrum'`)
+
+* `OPTIMISM` (value: `'optimism'`)
+
+* `STELLAR` (value: `'stellar'`)
+
+* `TRON` (value: `'tron'`)
+
+* `BRIDGE_WALLET` (value: `'bridge_wallet'`)
+
+* `WIRE` (value: `'wire'`)
+
+* `ACH` (value: `'ach'`)
+
+* `ACH_PUSH` (value: `'ach_push'`)
+
+* `ACH_SAME_DAY` (value: `'ach_same_day'`)
+
+* `SEPA` (value: `'sepa'`)
+
+* `SWIFT` (value: `'swift'`)
+
+* `SPEI` (value: `'spei'`)
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
