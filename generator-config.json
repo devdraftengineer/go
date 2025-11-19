@@ -1,36 +1,36 @@
 {
   "typescript": {
-    "npmName": "@mycompany/api-client",
+    "npmName": "@devdraft/sdk",
     "npmVersion": "1.0.0"
   },
   "python": {
-    "packageName": "api_client",
+    "packageName": "devdraft",
     "packageVersion": "1.0.0",
-    "projectName": "api-client"
+    "projectName": "devdraft-sdk"
   },
   "java": {
-    "groupId": "com.mycompany",
-    "artifactId": "api-client",
+    "groupId": "com.devdraft",
+    "artifactId": "sdk",
     "artifactVersion": "1.0.0"
   },
   "go": {
-    "packageName": "api",
+    "packageName": "devdraft",
     "packageVersion": "1.0.0",
-    "moduleName": "github.com/mycompany/api-client"
+    "moduleName": "github.com/devdraftengineer/go"
   },
   "csharp": {
-    "packageName": "ApiClient",
+    "packageName": "Devdraft",
     "packageVersion": "1.0.0"
   },
   "php": {
-    "packageName": "api-client",
+    "packageName": "devdraft",
     "packageVersion": "1.0.0",
-    "invokerPackage": "ApiClient"
+    "invokerPackage": "Devdraft"
   },
   "ruby": {
-    "gemName": "api_client",
+    "gemName": "devdraft",
     "gemVersion": "1.0.0",
-    "moduleName": "ApiClient"
+    "moduleName": "Devdraft"
   }
 }
 

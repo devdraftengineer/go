@@ -1,0 +1,20 @@
+<!-- Maven settings.xml template -->
+<!-- Copy this file to ~/.m2/settings.xml and fill in your Sonatype credentials -->
+<!-- 
+  To create/edit ~/.m2/settings.xml:
+  1. Create the directory if it doesn't exist: mkdir -p ~/.m2
+  2. Copy this template: cp Maven-settings-template.xml ~/.m2/settings.xml
+  3. Edit ~/.m2/settings.xml and replace YOUR_SONATYPE_USERNAME and YOUR_SONATYPE_PASSWORD
+  4. Make sure the file has secure permissions: chmod 600 ~/.m2/settings.xml
+-->
+
+<settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>YOUR_SONATYPE_USERNAME</username>
+      <password>YOUR_SONATYPE_PASSWORD</password>
+    </server>
+  </servers>
+</settings>
+

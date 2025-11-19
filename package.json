@@ -4,7 +4,7 @@
   "description": "SDK factory for generating multi-language SDKs from OpenAPI specifications",
   "type": "module",
   "scripts": {
-    "generate-sdks": "node ./scripts/generate-sdks.mjs ./openapi/api.yaml"
+    "generate-sdks": "node ./scripts/generate-sdks.mjs"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "^2.7.0"

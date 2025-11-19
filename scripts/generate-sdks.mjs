@@ -5,24 +5,34 @@
  * 
  * Generates SDKs for multiple languages from an OpenAPI specification.
  * 
+ * Auto-detection:
+ *   - If no path is provided, automatically searches ./openapi/ for spec files
+ *   - Supports .yml, .yaml, and .json formats
+ *   - Priority: api.yaml > openapi.yaml > spec.yaml > any other .yml/.yaml/.json file
+ * 
  * Usage:
- *   node ./scripts/generate-sdks.mjs <path-to-openapi-spec>
+ *   node ./scripts/generate-sdks.mjs [path-to-openapi-spec]
  * 
  * Examples:
- *   node ./scripts/generate-sdks.mjs ./openapi/api.yaml
- *   node ./scripts/generate-sdks.mjs ./openapi/my-api.yaml
+ *   # Auto-detect spec file in ./openapi/
+ *   node ./scripts/generate-sdks.mjs
+ *   pnpm generate-sdks
  * 
- * You can also override the default spec path via CLI argument:
- *   pnpm generate-sdks ./openapi/custom-api.yaml
+ *   # Explicitly specify a spec file
+ *   node ./scripts/generate-sdks.mjs ./openapi/api.yaml
+ *   node ./scripts/generate-sdks.mjs ./openapi/my-api.yml
+ *   node ./scripts/generate-sdks.mjs ./openapi/openapi.json
+ * 
+ *   # Via npm/yarn
  *   npm run generate-sdks -- ./openapi/custom-api.yaml
  * 
- * Or set OPENAPI_SPEC environment variable:
+ *   # Via environment variable
  *   OPENAPI_SPEC=./openapi/custom-api.yaml pnpm generate-sdks
  */
 
 import { execSync } from 'child_process';
-import { existsSync, rmSync, mkdirSync } from 'fs';
-import { resolve, dirname } from 'path';
+import { existsSync, rmSync, mkdirSync, readdirSync } from 'fs';
+import { resolve, dirname, extname, join, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { readFileSync } from 'fs';
 
@@ -119,6 +129,48 @@ const generators = [
 ];
 
 /**
+ * Auto-detect OpenAPI spec file in the openapi directory
+ * Supports .yml, .yaml, and .json extensions
+ */
+function detectSpecFile(openapiDir) {
+  const supportedExtensions = ['.yml', '.yaml', '.json'];
+  const priorityOrder = ['api.yaml', 'api.yml', 'openapi.yaml', 'openapi.yml', 'openapi.json', 'spec.yaml', 'spec.yml', 'spec.json'];
+  
+  if (!existsSync(openapiDir)) {
+    return null;
+  }
+  
+  try {
+    const files = readdirSync(openapiDir);
+    
+    // First, check for priority filenames
+    for (const priorityFile of priorityOrder) {
+      if (files.includes(priorityFile)) {
+        const filePath = join(openapiDir, priorityFile);
+        if (existsSync(filePath)) {
+          return filePath;
+        }
+      }
+    }
+    
+    // If no priority file found, find any file with supported extension
+    for (const file of files) {
+      const ext = extname(file).toLowerCase();
+      if (supportedExtensions.includes(ext)) {
+        const filePath = join(openapiDir, file);
+        if (existsSync(filePath)) {
+          return filePath;
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Warning: Could not read openapi directory: ${error.message}`);
+  }
+  
+  return null;
+}
+
+/**
  * Convert additional properties object to CLI string format
  */
 function formatAdditionalProperties(props) {
@@ -183,23 +235,48 @@ function generateSDK(specPath, generator) {
  * Main execution
  */
 function main() {
-  // Get spec path from CLI argument or environment variable or default
+  console.log('🚀 SDK Factory - Multi-language SDK Generator\n');
+  
+  // Get spec path from CLI argument or environment variable
   const cliArg = process.argv[2];
   const envSpec = process.env.OPENAPI_SPEC;
-  const defaultSpec = './openapi/api.yaml';
   
-  const specPath = cliArg || envSpec || defaultSpec;
-  const resolvedSpecPath = resolve(projectRoot, specPath);
+  let specPath = cliArg || envSpec;
+  let resolvedSpecPath = null;
   
-  console.log('🚀 SDK Factory - Multi-language SDK Generator\n');
-  console.log(`📄 OpenAPI Spec: ${specPath}`);
-  console.log(`   Resolved: ${resolvedSpecPath}\n`);
+  // If a path was provided, use it
+  if (specPath) {
+    resolvedSpecPath = resolve(projectRoot, specPath);
+    console.log(`📄 OpenAPI Spec: ${specPath}`);
+    console.log(`   Resolved: ${resolvedSpecPath}\n`);
+    
+    // Check if the provided path exists
+    if (!existsSync(resolvedSpecPath)) {
+      console.warn(`⚠️  Warning: Provided spec file not found: ${resolvedSpecPath}`);
+      console.log(`   Attempting to auto-detect spec file in ./openapi/ directory...\n`);
+      resolvedSpecPath = null; // Will trigger auto-detection below
+    }
+  }
   
-  // Validate spec file exists
-  if (!existsSync(resolvedSpecPath)) {
-    console.error(`❌ Error: OpenAPI spec file not found: ${resolvedSpecPath}`);
-    console.error(`   Please ensure the file exists and the path is correct.`);
-    process.exit(1);
+  // Auto-detect spec file if not provided or not found
+  if (!resolvedSpecPath) {
+    const openapiDir = resolve(projectRoot, 'openapi');
+    const detectedPath = detectSpecFile(openapiDir);
+    
+    if (detectedPath) {
+      resolvedSpecPath = detectedPath;
+      specPath = './' + relative(projectRoot, detectedPath).replace(/\\/g, '/');
+      console.log(`📄 Auto-detected OpenAPI Spec: ${specPath}`);
+      console.log(`   Resolved: ${resolvedSpecPath}\n`);
+    } else {
+      console.error(`❌ Error: Could not find OpenAPI spec file.`);
+      console.error(`   Searched in: ${openapiDir}`);
+      console.error(`   Supported formats: .yml, .yaml, .json`);
+      console.error(`   Please place your OpenAPI spec file in the ./openapi/ directory,`);
+      console.error(`   or specify the path explicitly:`);
+      console.error(`     pnpm generate-sdks ./openapi/your-spec.yaml`);
+      process.exit(1);
+    }
   }
   
   console.log(`✅ Spec file found\n`);
