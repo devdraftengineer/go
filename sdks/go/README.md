@@ -24,7 +24,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import devdraft "github.com/GIT_USER_ID/GIT_REPO_ID"
+import devdraft "github.com/devdraftengineer/go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
