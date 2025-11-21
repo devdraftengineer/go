@@ -96,6 +96,44 @@ with devdraft.ApiClient(configuration) as api_client:
 
 ```
 
+
+## Examples
+
+This SDK includes comprehensive examples demonstrating common use cases. Each example includes simple usage, advanced workflows, and error handling scenarios.
+
+### Quick Start Example
+
+```python
+import devdraft
+
+configuration = devdraft.Configuration(
+    host="https://api.devdraft.ai"
+)
+configuration.api_key['x-client-key'] = 'your-client-key'
+configuration.api_key['x-client-secret'] = 'your-client-secret'
+
+with devdraft.ApiClient(configuration) as api_client:
+    api_instance = devdraft.APIHealthApi(api_client)
+    response = api_instance.health_controller_public_health_check_v0()
+    print(f"Service status: {response.status}")
+```
+
+### Available Example Files
+
+- [Health Examples](./examples/health_check.py)
+- [Payments Examples](./examples/payments.py)
+- [Customers Examples](./examples/customers.py)
+- [Invoices Examples](./examples/invoices.py)
+- [Webhooks Examples](./examples/webhooks.py)
+
+### Example Structure
+
+Each example file contains:
+- **Simple Examples**: Basic usage with minimal code
+- **Advanced Examples**: Complex workflows and best practices  
+- **Error Scenarios**: How to handle errors and edge cases
+
+For detailed examples, see the [examples directory](./examples/README.md).
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.devdraft.ai*
