@@ -104,6 +104,34 @@ public class ApiHealthApiExample {
 
 ```
 
+
+## Examples
+
+This SDK includes comprehensive examples demonstrating common use cases. Each example includes simple usage, advanced workflows, and error handling scenarios.
+
+### Quick Start Example
+
+```java
+// Java quick start example
+// See examples directory for full implementation
+```
+
+### Available Example Files
+
+- [Health Examples](./examples/HealthCheckExample.java)
+- [Payments Examples](./examples/PaymentsExample.java)
+- [Customers Examples](./examples/CustomersExample.java)
+- [Invoices Examples](./examples/InvoicesExample.java)
+- [Webhooks Examples](./examples/WebhooksExample.java)
+
+### Example Structure
+
+Each example file contains:
+- **Simple Examples**: Basic usage with minimal code
+- **Advanced Examples**: Complex workflows and best practices  
+- **Error Scenarios**: How to handle errors and edge cases
+
+For detailed examples, see the [examples directory](./examples/README.md).
 ## Documentation for API Endpoints
 
 All URIs are relative to *https://api.devdraft.ai*
